@@ -1,0 +1,20 @@
+{
+  "name": "braid",
+  "version": "1.0.0",
+  "description": "braid packaged by electron",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron main.js",
+
+    "clean": "rm -rf ./dist",
+    "clean:osx": "rm -rf ./dist/osx",
+
+    "pack": "npm run clean && npm run pack:osx && npm run pack:win",
+    "pack:osx": "npm run clean:osx && electron-packager . \"Braid\" --out=\"dist/osx\" --platform=darwin --arch=x64 --version=0.36.4 --icon=assets/osx/braid.icns"
+
+  },
+  "devDependencies": {
+    "electron-packager": "^5.2.1",
+    "electron-prebuilt": "^0.36.4"
+  }
+}
