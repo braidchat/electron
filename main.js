@@ -6,6 +6,7 @@ const app = electron.app;
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow;
 const Menu = electron.Menu;
+const shell = electron.shell;
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -49,6 +50,13 @@ function createWindow () {
   ];
 
   Menu.setApplicationMenu(Menu.buildFromTemplate(template));
+
+
+  // open links in browser, not electron
+  mainWindow.webContents.on('new-window', function(e, url) {
+    e.preventDefault();
+    shell.openExternal(url);
+  });
 }
 
 // This method will be called when Electron has finished
