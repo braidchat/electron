@@ -6,10 +6,23 @@ npm install
 
 npm start
 
-# to build
+
+
+
+# to build for mac:
 
 npm run pack:osx
 
 # open:
 
 open dist/osx/Braid-darwin-x64/Braid.app
+
+
+# to build for windows:
+
+npm run pack:win
+
+# open
+
+open dist/win/...?
+
