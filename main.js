@@ -46,7 +46,31 @@ function createWindow () {
         { label: "Copy", accelerator: "CmdOrCtrl+C", selector: "copy:" },
           { label: "Paste", accelerator: "CmdOrCtrl+V", selector: "paste:" },
           { label: "Select All", accelerator: "CmdOrCtrl+A", selector: "selectAll:" }
-      ]}
+      ]}, {
+        label: 'View',
+        submenu: [
+        { label: 'Reload', accelerator: 'Command+R',
+          click: function() { BrowserWindow.getFocusedWindow().reloadIgnoringCache(); } },
+        { label: 'Back', accelerator: 'Command+[',
+          click: function() {
+            var content = BrowserWindow.getFocusedWindow().webContents;
+            if (content.canGoBack()) {
+              content.goBack();
+            } }
+        },
+          { label: 'Forward', accelerator: 'Command+]',
+            click: function() {
+              var content = BrowserWindow.getFocusedWindow().webContents;
+              if (content.canGoForward()) {
+                content.goForward();
+              }
+            } },
+          { type: 'separator' },
+            { label: 'Toggle DevTools',
+              accelerator: 'Alt+Command+J',
+              click: function() { BrowserWindow.getFocusedWindow().toggleDevTools(); } }
+    ]
+  }
   ];
 
   Menu.setApplicationMenu(Menu.buildFromTemplate(template));
