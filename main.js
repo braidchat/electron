@@ -8,6 +8,9 @@ const BrowserWindow = electron.BrowserWindow;
 const Menu = electron.Menu;
 const shell = electron.shell;
 
+// overlay scrollbars on windows, linux
+app.commandLine.appendSwitch("--enable-overlay-scrollbar");
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
