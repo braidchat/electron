@@ -6,6 +6,10 @@ const app = electron.app;
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow;
 const Menu = electron.Menu;
+const shell = electron.shell;
+
+// overlay scrollbars on windows, linux
+app.commandLine.appendSwitch("--enable-overlay-scrollbar");
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -45,10 +49,41 @@ function createWindow () {
         { label: "Copy", accelerator: "CmdOrCtrl+C", selector: "copy:" },
           { label: "Paste", accelerator: "CmdOrCtrl+V", selector: "paste:" },
           { label: "Select All", accelerator: "CmdOrCtrl+A", selector: "selectAll:" }
-      ]}
+      ]}, {
+        label: 'View',
+        submenu: [
+        { label: 'Reload', accelerator: 'Command+R',
+          click: function() { BrowserWindow.getFocusedWindow().reloadIgnoringCache(); } },
+        { label: 'Back', accelerator: 'Command+[',
+          click: function() {
+            var content = BrowserWindow.getFocusedWindow().webContents;
+            if (content.canGoBack()) {
+              content.goBack();
+            } }
+        },
+          { label: 'Forward', accelerator: 'Command+]',
+            click: function() {
+              var content = BrowserWindow.getFocusedWindow().webContents;
+              if (content.canGoForward()) {
+                content.goForward();
+              }
+            } },
+          { type: 'separator' },
+            { label: 'Toggle DevTools',
+              accelerator: 'Alt+Command+J',
+              click: function() { BrowserWindow.getFocusedWindow().toggleDevTools(); } }
+    ]
+  }
   ];
 
   Menu.setApplicationMenu(Menu.buildFromTemplate(template));
+
+
+  // open links in browser, not electron
+  mainWindow.webContents.on('new-window', function(e, url) {
+    e.preventDefault();
+    shell.openExternal(url);
+  });
 }
 
 // This method will be called when Electron has finished
