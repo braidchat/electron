@@ -10,11 +10,11 @@
     "clean:osx": "rm -rf ./dist/osx",
 
     "pack": "npm run clean && npm run pack:osx && npm run pack:win",
-    "pack:osx": "npm run clean:osx && electron-packager . \"Braid\" --out=\"dist/osx\" --platform=darwin --arch=x64 --version=0.36.4 --icon=assets/osx/braid.icns"
-
+    "pack:osx": "npm run clean:osx && electron-packager . \"Braid\" --out=\"dist/osx\" --platform=darwin --arch=x64 --version=1.2.2 --icon=assets/osx/braid.icns",
+    "pack:win": "npm run clean:win && electron-packager . \"Braid\" --out=\"dist/win\" --platform=win32 --arch=ia32 --version=1.2.2 --icon=assets/win/braid.ico"
   },
   "devDependencies": {
-    "electron-packager": "^5.2.1",
-    "electron-prebuilt": "^0.36.4"
+    "electron-packager": "^7.0.3",
+    "electron-prebuilt": "^1.2.2"
   }
 }

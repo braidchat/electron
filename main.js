@@ -17,10 +17,20 @@ let mainWindow;
 
 function createWindow () {
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 800, height: 600});
+  mainWindow = new BrowserWindow({
+    width: 800,
+    height: 600,
+    show: false,
+    titleBarStyle: 'hidden',
+    webPreferences: {
+      allowDisplayingInsecureContent: true,
+      nodeIntegration: false
+    }});
+
 
   // and load the index.html of the app.
-  mainWindow.loadURL('https://chat.leanpixel.com');
+  mainWindow.loadURL('https://braid.chat');
+  mainWindow.show();
 
   // Open the DevTools.
   // mainWindow.webContents.openDevTools();
@@ -53,7 +63,7 @@ function createWindow () {
         label: 'View',
         submenu: [
         { label: 'Reload', accelerator: 'Command+R',
-          click: function() { BrowserWindow.getFocusedWindow().reloadIgnoringCache(); } },
+          click: function() { BrowserWindow.getFocusedWindow().reload(); } },
         { label: 'Back', accelerator: 'Command+[',
           click: function() {
             var content = BrowserWindow.getFocusedWindow().webContents;
